@@ -1,10 +1,14 @@
+import fbchat
 from fbchat import Client
 from fbchat.models import *
+from fbchat import Client, Thread, Message, ThreadLocation
 import json
 import time
 from datetime import datetime  
 from datetime import timedelta
-
+import re
+fbchat._util.USER_AGENTS    = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"]
+fbchat._state.FB_DTSG_REGEX = re.compile(r'"name":"fb_dtsg","value":"(.*?)"')
 class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
@@ -58,7 +62,10 @@ class RunMonitoring():
                         return_message = "Vvxjtpo5Qn (November 1, 2020)"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
             time.sleep(3)
-
+    
+     
+    
+    
     def wbspawntime(self):
         return_message = ""
         spawn_loc = {
