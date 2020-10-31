@@ -1,0 +1,29 @@
+spawn_loc = [
+    ['soul', 'harvest/elf land', '0'],
+    ['8i', 'karben/zahara', '0'],
+    ['saint', 'wildland', '0'],
+    ['lake', 'dawn/forest', '0'],
+    ['loran', 'rift/relic', '0']
+]
+keys = ['24:05', '24:25', '24:03', '24:21', '24:23']
+time = 0
+while time < 5:
+    spawn_loc[time][2] = keys[time]
+    time = time+1
+
+
+for key in range(len(spawn_loc)-1,0,-1):
+    for sort in range(key):
+        if int(spawn_loc[sort][2][0:2]) >= int(spawn_loc[sort+1][2][0:2]):
+            if int(spawn_loc[sort][2][0:2]) == int(spawn_loc[sort + 1][2][0:2]):
+                if int(spawn_loc[sort][2][3:5]) > int(spawn_loc[sort + 1][2][3:5]):
+                    temp = spawn_loc[sort]
+                    spawn_loc[sort] = spawn_loc[sort + 1]
+                    spawn_loc[sort + 1] = temp
+            else:
+                temp = spawn_loc[sort]
+                spawn_loc[sort] = spawn_loc[sort + 1]
+                spawn_loc[sort + 1] = temp
+
+
+print(spawn_loc)
