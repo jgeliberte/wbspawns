@@ -54,6 +54,9 @@ class RunMonitoring():
                     elif message.text == "/sinomalakas":
                         return_message = "Relictus lang malakas"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                    elif message.text == "/latestcode":
+                        return_message = "Vvxjtpo5Qn (November 1, 2020)"
+                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
             time.sleep(3)
 
     def wbspawntime(self):
