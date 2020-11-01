@@ -89,10 +89,8 @@ class RunMonitoring():
                         spawn_loc[sort + 1] = temp
 
         time2 = 0
-        print(f'World boss     Location        Time \n')
-        returnMessage = f'World boss     Location        Time \n'
         while time2 < 5:
-            returnMessage += f'{spawn_loc[time2][0]}       {spawn_loc[time2][1]}       {spawn_loc[time2][2]}\n'
+            returnMessage += f'{spawn_loc[time2][0]}       {spawn_loc[time2][1]}\n{spawn_loc[time2][2]}\n'
             time2 = time2 + 1
         return returnMessage    
 
