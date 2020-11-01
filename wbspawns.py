@@ -1,10 +1,15 @@
+import fbchat
 from fbchat import Client
 from fbchat.models import *
+from fbchat import Client, Thread, Message, ThreadLocation
 import json
 import time
 from datetime import datetime  
 from datetime import timedelta
-
+import test
+import re
+fbchat._util.USER_AGENTS    = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"]
+fbchat._state.FB_DTSG_REGEX = re.compile(r'"name":"fb_dtsg","value":"(.*?)"')
 class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
@@ -19,7 +24,6 @@ class RunMonitoring():
             "lake": 6,
             "loran": 8
         }
-
         while(True):
             messages = client.fetchThreadMessages(thread_id=thread_id, limit=10)
             messages.reverse()
@@ -28,7 +32,8 @@ class RunMonitoring():
                 if read_status == False:
                     prev_messages.append(f'{message.text}-{message.timestamp}')
                     if message.text == "/wbspawn":
-                        return_message = self.wbspawntime()
+                        return_message = self.doSomething()
+                        print(self.doSomething())
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                     elif message.text == "/wbscam":
                         return_message = "Ulol na Ulol"
@@ -58,22 +63,42 @@ class RunMonitoring():
                         return_message = "Vvxjtpo5Qn (November 1, 2020)"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
             time.sleep(3)
-
-    def wbspawntime(self):
-        return_message = ""
-        spawn_loc = {
-            "soul": "harvest/elf land",
-            "8i": "karben/zahara",
-            "saint": "wildland",
-            "lake": "dawn/forest",
-            "loran": "rift/relic"   
-        }
+    def doSomething(self):
+        returnMessage = ""
+        spawn_loc = [
+        ['soul', 'harvest/elf land', '0'],
+        ['8i', 'karben/zahara', '0'],
+        ['saint', 'wildland', '0'],
+        ['lake', 'dawn/forest', '0'],
+        ['loran', 'rift/relic', '0']
+    ]
         with open('timestamps.json') as json_file:
             data = json.load(json_file)
             keys = list(data)
-            for key in keys:
-                return_message = return_message + key + f' ({spawn_loc[key]})' + " - " +data[key] +"\n"
-        return return_message
+
+        time = 0
+        for key in keys:
+            spawn_loc[time][2] = keys[key]
+        for key in range(len(spawn_loc)-1,0,-1):
+            for sort in range(key):
+                if int(spawn_loc[sort][2][0:2]) >= int(spawn_loc[sort+1][2][0:2]):
+                    if int(spawn_loc[sort][2][0:2]) == int(spawn_loc[sort + 1][2][0:2]):
+                        if int(spawn_loc[sort][2][3:5]) > int(spawn_loc[sort + 1][2][3:5]):
+                            temp = spawn_loc[sort]
+                            spawn_loc[sort] = spawn_loc[sort + 1]
+                            spawn_loc[sort + 1] = temp
+                    else:
+                        temp = spawn_loc[sort]
+                        spawn_loc[sort] = spawn_loc[sort + 1]
+                        spawn_loc[sort + 1] = temp
+
+        time2 = 0
+        print(f'World boss     Location        Time \n')
+        returnMessage = f'World boss     Location        Time \n'
+        while time2 < 5:
+            returnMessage += f'{spawn_loc[time2][0]}       {spawn_loc[time2][1]}       {spawn_loc[time2][2]}\n'
+            time2 = time2 + 1
+        return returnMessage    
 
 if __name__ == "__main__":
     RunMonitoring()
