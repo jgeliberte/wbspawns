@@ -6,15 +6,14 @@ import json
 import time
 from datetime import datetime  
 from datetime import timedelta
-import test
 import re
 fbchat._util.USER_AGENTS    = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"]
 fbchat._state.FB_DTSG_REGEX = re.compile(r'"name":"fb_dtsg","value":"(.*?)"')
 class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
-        client = Client("wesgibs20@gmail.com", "relictuswbspawn20")
-        thread_id = "3494311873939189"
+        client = Client("louiejapitan2001@gmail.com", "Permiha101")
+        thread_id = "4660499047325731"
         thread_type = ThreadType.GROUP
         prev_messages = []
         spawn_time = {
@@ -25,7 +24,7 @@ class RunMonitoring():
             "loran": 8
         }
         while(True):
-            messages = client.fetchThreadMessages(thread_id=thread_id, limit=10)
+            messages = client.fetchThreadMessages(thread_id=thread_id, limit=1)
             messages.reverse()
             for message in messages:
                 read_status = f'{message.text}-{message.timestamp}' in prev_messages
@@ -35,31 +34,23 @@ class RunMonitoring():
                         return_message = self.doSomething()
                         print(self.doSomething())
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/wbscam":
+                    if message.text == "/wbscam":
                         return_message = "Ulol na Ulol"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif "/wbset" in message.text:
+                    if message.text.startswith('/wbset'):
                         digest = message.text.split(' ')
-                        if len(digest) == 3:
-                            with open('timestamps.json') as json_file:
-                                data = json.load(json_file)
-                                keys = list(data)
-                                if digest[1] in keys:
-                                    new_time = datetime.strptime(digest[2], '%H:%M') + timedelta(hours=spawn_time[digest[1]])
-                                    data[digest[1]] = new_time.strftime('%H:%M')
-                                    with open('timestamps.json', 'w') as outfile:
-                                        json.dump(data, outfile)
-                                        client.send(Message(text=f'{digest[1]} spawn time: {data[digest[1]]}'), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/sinolooter":
+                        return_message = self.spawnSet(digest[1],digest[2])
+                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                    if message.text == "/sinolooter":
                         return_message = "Zem dakilang looter"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/sinomanyak":
+                    if message.text == "/sinomanyak":
                         return_message = "Lahat kayo pwera kay lulu"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/sinomalakas":
+                    if message.text == "/sinomalakas":
                         return_message = "Relictus lang malakas"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/latestcode":
+                    if message.text == "/latestcode":
                         return_message = "Vvxjtpo5Qn (November 1, 2020)"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
             time.sleep(3)
@@ -74,11 +65,14 @@ class RunMonitoring():
     ]
         with open('timestamps.json') as json_file:
             data = json.load(json_file)
-            keys = list(data)
+            
+            spawn_loc[0][2] = data['soul']
+            spawn_loc[1][2] = data['8i']
+            spawn_loc[2][2] = data['saint']
+            spawn_loc[3][2] = data['lake']
+            spawn_loc[4][2] = data['loran']
+            print(f"spawn_loc->{spawn_loc[0][2] }")
 
-        time = 0
-        for key in keys:
-            spawn_loc[time][2] = keys[key]
         for key in range(len(spawn_loc)-1,0,-1):
             for sort in range(key):
                 if int(spawn_loc[sort][2][0:2]) >= int(spawn_loc[sort+1][2][0:2]):
@@ -93,12 +87,32 @@ class RunMonitoring():
                         spawn_loc[sort + 1] = temp
 
         time2 = 0
-        print(f'World boss     Location        Time \n')
-        returnMessage = f'World boss     Location        Time \n'
         while time2 < 5:
-            returnMessage += f'{spawn_loc[time2][0]}       {spawn_loc[time2][1]}       {spawn_loc[time2][2]}\n'
+            returnMessage += f'{spawn_loc[time2][0]}    -   {spawn_loc[time2][2]}\n{spawn_loc[time2][1]}\n'
             time2 = time2 + 1
         return returnMessage    
-
+    def spawnSet(self,location,time):
+        returnMessage = ""
+        test = "/wbset "+location + " "+ time
+        spawn_time = {
+            "soul": 2,
+            "8i": 3,
+            "saint": 4,
+            "lake": 6,
+            "loran": 8
+        }
+        digest = test.split(' ')
+        print(digest[1])
+        if len(digest) == 3:
+            with open('timestamps.json') as json_file:
+                data = json.load(json_file)
+                keys = list(data)
+                if digest[1] in keys:
+                    new_time = datetime.strptime(digest[2], '%H:%M') + timedelta(hours=spawn_time[digest[1]])
+                    data[digest[1]] = new_time.strftime('%H:%M')
+                    with open('timestamps.json', 'w') as outfile:
+                        json.dump(data, outfile)
+                        returnMessage = f'{digest[1]} spawn time: {data[digest[1]]}'
+                        return returnMessage
 if __name__ == "__main__":
     RunMonitoring()
