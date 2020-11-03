@@ -12,8 +12,8 @@ fbchat._state.FB_DTSG_REGEX = re.compile(r'"name":"fb_dtsg","value":"(.*?)"')
 class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
-        client = Client("louiejapitan2001@gmail.com", "Permiha101")
-        thread_id = "4660499047325731"
+        client = Client("louiejapitan2001@gmail.com", "kgyo1061d")
+        thread_id = "3494311873939189"
         thread_type = ThreadType.GROUP
         prev_messages = []
         spawn_time = {
