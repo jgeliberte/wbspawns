@@ -7,7 +7,15 @@ def doSomething():
     ['lake', 'dawn/forest', '0'],
     ['loran', 'rift/relic', '0']
 ]
-    keys = ['20:05', '24:25', '24:03', '24:21', '24:23']
+    with open('timestamps.json') as json_file:
+    data = json.load(json_file)
+    keys = list(data)
+    spawn_loc[0][2] = keys['soul']
+    spawn_loc[1][2] = keys['8i']
+    spawn_loc[2][2] = keys['saint']
+    spawn_loc[3][2] = keys['lake']
+    spawn_loc[4][2] = keys['loran']
+    
     time = 0
     while time < 5:
         spawn_loc[time][2] = keys[time]
