@@ -25,7 +25,7 @@ class RunMonitoring():
             "loran": 8
         }
         while(True):
-            messages = client.fetchThreadMessages(thread_id=thread_id, limit=3)
+            messages = client.fetchThreadMessages(thread_id=thread_id, limit=6)
             messages.reverse()
             for message in messages:
                 read_status = f'{message.text}-{message.timestamp}' in prev_messages
