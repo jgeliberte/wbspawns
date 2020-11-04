@@ -14,7 +14,7 @@ class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
         client = Client("louiejapitan2001@gmail.com", "kgyo1061d")
-        thread_id = "3494311873939189"
+        thread_id = "4560113830725467"
         thread_type = ThreadType.GROUP
         prev_messages = []
         spawn_time = {
@@ -25,7 +25,7 @@ class RunMonitoring():
             "loran": 8
         }
         while(True):
-            messages = client.fetchThreadMessages(thread_id=thread_id, limit=4)
+            messages = client.fetchThreadMessages(thread_id=thread_id, limit=3)
             messages.reverse()
             for message in messages:
                 read_status = f'{message.text}-{message.timestamp}' in prev_messages
@@ -77,30 +77,17 @@ class RunMonitoring():
     ]
         with open('timestamps.json') as json_file:
             data = json.load(json_file)
-            
             spawn_loc[0][2] = data['soul']
             spawn_loc[1][2] = data['8i']
             spawn_loc[2][2] = data['saint']
             spawn_loc[3][2] = data['lake']
             spawn_loc[4][2] = data['loran']
-            print(f"spawn_loc->{spawn_loc[0][2] }")
 
-        for key in range(len(spawn_loc)-1,0,-1):
-            for sort in range(key):
-                if int(spawn_loc[sort][2][0:2]) >= int(spawn_loc[sort+1][2][0:2]):
-                    if int(spawn_loc[sort][2][0:2]) == int(spawn_loc[sort + 1][2][0:2]):
-                        if int(spawn_loc[sort][2][3:5]) > int(spawn_loc[sort + 1][2][3:5]):
-                            temp = spawn_loc[sort]
-                            spawn_loc[sort] = spawn_loc[sort + 1]
-                            spawn_loc[sort + 1] = temp
-                    else:
-                        temp = spawn_loc[sort]
-                        spawn_loc[sort] = spawn_loc[sort + 1]
-                        spawn_loc[sort + 1] = temp
+        new = sorted(spawn_loc, key=lambda x: x[2])
 
         time2 = 0
         while time2 < 5:
-            returnMessage += f'{spawn_loc[time2][0]}    -   {spawn_loc[time2][2]}\n{spawn_loc[time2][1]}\n'
+            returnMessage += f'{new[time2][0]}    -   {new[time2][2]}\n{new[time2][1]}\n'
             time2 = time2 + 1
         return returnMessage
 
