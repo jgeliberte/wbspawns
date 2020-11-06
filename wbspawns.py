@@ -4,17 +4,17 @@ from fbchat.models import *
 from fbchat import Client, Thread, Message, ThreadLocation
 import json
 import time
-from datetime import datetime  
-from datetime import timedelta
+import datetime
 import re
+
 fbchat._util.USER_AGENTS    = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"]
 fbchat._state.FB_DTSG_REGEX = re.compile(r'"name":"fb_dtsg","value":"(.*?)"')
 
 class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
-        client = Client("louiejapitan2001@gmail.com", "kgyo1061d")
-        thread_id = "4560113830725467"
+        client = Client("louiejapitan03@gmail.com", "klouygd2")
+        thread_id = "3494311873939189"
         thread_type = ThreadType.GROUP
         prev_messages = []
         spawn_time = {
@@ -24,8 +24,11 @@ class RunMonitoring():
             "lake": 6,
             "loran": 8
         }
+
+
+
         while(True):
-            messages = client.fetchThreadMessages(thread_id=thread_id, limit=6)
+            messages = client.fetchThreadMessages(thread_id=thread_id, limit=3)
             messages.reverse()
             for message in messages:
                 read_status = f'{message.text}-{message.timestamp}' in prev_messages
@@ -58,13 +61,53 @@ class RunMonitoring():
                     elif message.text == "/latestcode":
                         return_message = "Vvxjtpo5Qn (November 1, 2020)\n\nvhaz5npul (2k PDO)"
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                    elif message.text == "/sinopogi":
+                        return_message = "SI FRANCINE DAW"
+                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                     elif message.text == "/help":
                         return_message = self.help()
                         print(self.help())
                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                     else:
                         pass
-            time.sleep(3)
+
+            current_time = datetime.datetime.now()
+            Advance_time = current_time + datetime.timedelta(minutes=5)
+            Wb_time = [
+                ['soul', '0'],
+                ['8i', '0'],
+                ['saint', '0'],
+                ['lake', '0'],
+                ['loran', '0']
+            ]
+            with open('timestamps.json') as json_file:
+                data = json.load(json_file)
+
+                Wb_time[0][1] = data['soul']
+                Wb_time[1][1] = data['8i']
+                Wb_time[2][1] = data['saint']
+                Wb_time[3][1] = data['lake']
+                Wb_time[4][1] = data['loran']
+
+                timer = 0
+                while timer < 5:
+                    if Advance_time.hour == int(Wb_time[timer][1][0:2]):
+                        if Advance_time.minute == int(Wb_time[timer][1][3:5]):
+                            if Advance_time.second == 11:
+                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                client.send(Message(text=return_message), thread_id=thread_id,
+                                            thread_type=thread_type)
+                                time.sleep(1)
+
+                        else:
+                            pass
+                    else:
+                        pass
+                    timer += 1
+
+
+
+
 
     def doSomething(self):
         returnMessage = ""
@@ -92,6 +135,8 @@ class RunMonitoring():
         return returnMessage
 
     def spawnSet(self, location, time):
+        from datetime import datetime
+        from datetime import timedelta
         returnMessage = ""
         test = "/wbset "+location + " "+ time
         spawn_time = {
@@ -132,6 +177,9 @@ class RunMonitoring():
             returnMessage += f'{help[time2]}\n'
             time2 = time2 + 1
         return returnMessage
+
+
+
 
 if __name__ == "__main__":
     RunMonitoring()
