@@ -13,7 +13,7 @@ fbchat._state.FB_DTSG_REGEX = re.compile(r'"name":"fb_dtsg","value":"(.*?)"')
 class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
-        client = Client("louiejapitan03@gmail.com", "klouygd2")
+        client = Client("bryanbilatan022@gmail.com", "kgytds153")
         thread_id = "3494311873939189"
         thread_type = ThreadType.GROUP
         prev_messages = []
@@ -34,40 +34,46 @@ class RunMonitoring():
                 read_status = f'{message.text}-{message.timestamp}' in prev_messages
                 if read_status == False:
                     prev_messages.append(f'{message.text}-{message.timestamp}')
-                    if message.text.startswith('/wbset'):
-                        digest = message.text.split(' ')
-                        if len(digest) == 3:
-                            return_message = self.spawnSet(digest[1], digest[2])
+                    if message.text is not None:
+                        wbset = message.text.split(' ')
+                        if wbset[0] == '/wbset':
+                            if len(wbset) == 3:
+                                return_message = self.spawnSet(wbset[1], wbset[2])
+                                client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                            else:
+                                return_message = f'Wrong format type /help'
+                                client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                        elif message.text == "/wbspawn":
+                            return_message = self.doSomething()
+                            print(self.doSomething())
+                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                        elif message.text == "/wbscam":
+                            return_message = "Ulol na Ulol"
+                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                        elif message.text == "/sinolooter":
+                            return_message = "Zem dakilang looter"
+                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                        elif message.text == "/sinomanyak":
+                            return_message = "Lahat kayo pwera kay lulu"
+                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                        elif message.text == "/sinomalakas":
+                            return_message = "Relictus lang malakas"
+                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                        elif message.text == "/latestcode":
+                            return_message = "Vvxjtpo5Qn (November 1, 2020)\n\nvhaz5npul (2k PDO)"
+                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                        elif message.text == "/help":
+                            return_message = self.help()
+                            print(self.help())
                             client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                         else:
-                            return_message = f'Wrong format type /help'
-                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/wbspawn":
-                        return_message = self.doSomething()
-                        print(self.doSomething())
-                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/wbscam":
-                        return_message = "Ulol na Ulol"
-                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/sinolooter":
-                        return_message = "Zem dakilang looter"
-                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/sinomanyak":
-                        return_message = "Lahat kayo pwera kay lulu"
-                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/sinomalakas":
-                        return_message = "Relictus lang malakas"
-                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/latestcode":
-                        return_message = "Vvxjtpo5Qn (November 1, 2020)\n\nvhaz5npul (2k PDO)"
-                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                    elif message.text == "/help":
-                        return_message = self.help()
-                        print(self.help())
-                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                            pass
                     else:
                         pass
-
+                else:
+                    pass
+            else:
+                pass
             current_time = datetime.datetime.now()
             Advance_time = current_time + datetime.timedelta(minutes=5)
             Wb_time = [
@@ -95,13 +101,31 @@ class RunMonitoring():
                                 client.send(Message(text=return_message), thread_id=thread_id,
                                             thread_type=thread_type)
                                 time.sleep(1)
-
+                            elif Advance_time.second == 12:
+                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                client.send(Message(text=return_message), thread_id=thread_id,
+                                            thread_type=thread_type)
+                                time.sleep(1)
+                            elif Advance_time.second == 13:
+                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                client.send(Message(text=return_message), thread_id=thread_id,
+                                            thread_type=thread_type)
+                                time.sleep(1)
+                            elif Advance_time.second == 14:
+                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                client.send(Message(text=return_message), thread_id=thread_id,
+                                            thread_type=thread_type)
+                                time.sleep(1)
+                            else:
+                                pass
                         else:
                             pass
                     else:
                         pass
                     timer += 1
 
+
+        time.sleep(3)
 
 
 
@@ -162,7 +186,7 @@ class RunMonitoring():
                 returnMessage = f'Wrong time H:M'
             return returnMessage
         else:
-            returnMessage = f'Wrong name or time format'
+            returnMessage = f'Wrong name or time format \n(/wbset name 00:00)'
         return returnMessage
 
 
