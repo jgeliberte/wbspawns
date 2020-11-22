@@ -14,7 +14,8 @@ class RunMonitoring():
     def __init__(self):
         print("Initializing script...")
         client = Client("bryanbilatan022@gmail.com", "kgytds153")
-        thread_id = "3494311873939189"
+        thread_id = "3288914904539462"
+        thread_id2 = "3494311873939189"
         thread_type = ThreadType.GROUP
         prev_messages = []
         spawn_time = {
@@ -28,7 +29,8 @@ class RunMonitoring():
 
 
         while(True):
-            messages = client.fetchThreadMessages(thread_id=thread_id, limit=3)
+            time.sleep(3)
+            messages = client.fetchThreadMessages(thread_id=thread_id, limit=4)
             messages.reverse()
             for message in messages:
                 read_status = f'{message.text}-{message.timestamp}' in prev_messages
@@ -47,18 +49,6 @@ class RunMonitoring():
                             return_message = self.doSomething()
                             print(self.doSomething())
                             client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                        elif message.text == "/wbscam":
-                            return_message = "Ulol na Ulol"
-                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                        elif message.text == "/sinolooter":
-                            return_message = "Zem dakilang looter"
-                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                        elif message.text == "/sinomanyak":
-                            return_message = "Lahat kayo pwera kay lulu"
-                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
-                        elif message.text == "/sinomalakas":
-                            return_message = "Relictus lang malakas"
-                            client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                         elif message.text == "/latestcode":
                             return_message = "Vvxjtpo5Qn (November 1, 2020)\n\nvhaz5npul (2k PDO)"
                             client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
@@ -71,61 +61,64 @@ class RunMonitoring():
                     else:
                         pass
                 else:
-                    pass
-            else:
-                pass
-            current_time = datetime.datetime.now()
-            Advance_time = current_time + datetime.timedelta(minutes=5)
-            Wb_time = [
-                ['soul', '0'],
-                ['8i', '0'],
-                ['saint', '0'],
-                ['lake', '0'],
-                ['loran', '0']
-            ]
-            with open('timestamps.json') as json_file:
-                data = json.load(json_file)
+                    current_time = datetime.datetime.now()
+                    Advance_time = current_time + datetime.timedelta(minutes=5)
+                    Wb_time = [
+                        ['soul', '0'],
+                        ['8i', '0'],
+                        ['saint', '0'],
+                        ['lake', '0'],
+                        ['loran', '0']
+                    ]
+                    with open('timestamps.json') as json_file:
+                        data = json.load(json_file)
 
-                Wb_time[0][1] = data['soul']
-                Wb_time[1][1] = data['8i']
-                Wb_time[2][1] = data['saint']
-                Wb_time[3][1] = data['lake']
-                Wb_time[4][1] = data['loran']
+                        Wb_time[0][1] = data['soul']
+                        Wb_time[1][1] = data['8i']
+                        Wb_time[2][1] = data['saint']
+                        Wb_time[3][1] = data['lake']
+                        Wb_time[4][1] = data['loran']
 
-                timer = 0
-                while timer < 5:
-                    if Advance_time.hour == int(Wb_time[timer][1][0:2]):
-                        if Advance_time.minute == int(Wb_time[timer][1][3:5]):
-                            if Advance_time.second == 11:
-                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
-                                client.send(Message(text=return_message), thread_id=thread_id,
-                                            thread_type=thread_type)
-                                time.sleep(1)
-                            elif Advance_time.second == 12:
-                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
-                                client.send(Message(text=return_message), thread_id=thread_id,
-                                            thread_type=thread_type)
-                                time.sleep(1)
-                            elif Advance_time.second == 13:
-                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
-                                client.send(Message(text=return_message), thread_id=thread_id,
-                                            thread_type=thread_type)
-                                time.sleep(1)
-                            elif Advance_time.second == 14:
-                                return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
-                                client.send(Message(text=return_message), thread_id=thread_id,
-                                            thread_type=thread_type)
-                                time.sleep(1)
+                        timer = 0
+                        while timer < 5:
+                            if Advance_time.hour == int(Wb_time[timer][1][0:2]):
+                                if Advance_time.minute == int(Wb_time[timer][1][3:5]):
+                                    if Advance_time.second == 11:
+                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                                        client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
+                                        time.sleep(1)
+                                    elif Advance_time.second == 12:
+                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                                        client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
+                                        time.sleep(1)
+                                    elif Advance_time.second == 13:
+                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                                        client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
+                                        time.sleep(1)
+                                    elif Advance_time.second == 14:
+                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                                        client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
+                                        time.sleep(1)
+                                    elif Advance_time.second == 15:
+                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
+                                        client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
+                                        time.sleep(1)
+                                    else:
+                                        pass
+                                else:
+                                    pass
                             else:
                                 pass
-                        else:
-                            pass
-                    else:
-                        pass
-                    timer += 1
+                            timer += 1
 
 
-        time.sleep(3)
+
+
 
 
 
@@ -192,7 +185,7 @@ class RunMonitoring():
 
     def help(self):
         returnMessage = ""
-        help = ['/wbspawn', '/wbset name time', '/latestcode', '/wbscam', '/sinolooter', '/sinomanyak', '/sinomalakas']
+        help = ['/wbspawn', '/wbset name 00:00', '/latestcode']
         time2 = 0
         while time2 < 7:
             returnMessage += f'{help[time2]}\n'
