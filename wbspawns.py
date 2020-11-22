@@ -84,27 +84,27 @@ class RunMonitoring():
                             if Advance_time.hour == int(Wb_time[timer][1][0:2]):
                                 if Advance_time.minute == int(Wb_time[timer][1][3:5]):
                                     if Advance_time.second == 11:
-                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        return_message = f'{Wb_time[timer][0]} is about to respawn'
                                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                                         client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
                                         time.sleep(1)
                                     elif Advance_time.second == 12:
-                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        return_message = f'{Wb_time[timer][0]} is about to respawn'
                                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                                         client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
                                         time.sleep(1)
                                     elif Advance_time.second == 13:
-                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        return_message = f'{Wb_time[timer][0]} is about to respawn'
                                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                                         client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
                                         time.sleep(1)
                                     elif Advance_time.second == 14:
-                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        return_message = f'{Wb_time[timer][0]} is about to respawn'
                                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                                         client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
                                         time.sleep(1)
                                     elif Advance_time.second == 15:
-                                        return_message = f'{Wb_time[timer][0]} 5 mins Before RS'
+                                        return_message = f'{Wb_time[timer][0]} is about to respawn'
                                         client.send(Message(text=return_message), thread_id=thread_id, thread_type=thread_type)
                                         client.send(Message(text=return_message), thread_id=thread_id2, thread_type=thread_type)
                                         time.sleep(1)
